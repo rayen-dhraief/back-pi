@@ -25,7 +25,8 @@ import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
 import { createGroup } from "./controllers/group.js";
 import { Server } from "socket.io";
-
+import { createEvent } from "./controllers/event.js";
+import  eventRoutes  from "./routes/events.js";
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,7 +63,7 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.post("/activity", verifyToken, upload.single("picture"), createActivity);
 
 app.post("/addgroup", createGroup);
-
+app.post("/events/add", verifyToken, createEvent);
 
 
 
@@ -90,7 +91,7 @@ mongoose
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
-
+app.use("/events", eventRoutes);
 app.use("/activity", activityRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/groups", groupeRoutes)
